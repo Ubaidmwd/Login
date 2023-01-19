@@ -1,11 +1,12 @@
-const express =require('express')
+const express = require('express')
 require('dotenv').config({ path: "backend\config.env" });
-
-const app=express()
+const app = express()
 app.use(express.json())
-const mongoose=require('mongoose')
-const User=require('./models/user')
-const bcrypt=require('bcryptjs')
+const mongoose = require('mongoose')
+const User = require('./models/user')
+const bcrypt = require('bcryptjs')
+const jwt=require('jsonwebtoken')
+const SECRET_KEY='s2r12fwe3324@wevgerv'
 
 //////////////////////////////////////////////////////////////////////////////////////
 // const PORT=4000 1XfmMFfAK8gMBUlV                                              //   
@@ -13,7 +14,7 @@ const bcrypt=require('bcryptjs')
 //////////////////////////////////////////////////////////////////////////////////////
 mongoose.set('strictQuery', false);
 
-const url ='mongodb://localhost:27017/Login'
+const url = 'mongodb://localhost:27017/Login'
 mongoose.connect(url).then(() => {
     console.log("Connected to Database");
 }).catch((err) => {
@@ -21,42 +22,73 @@ mongoose.connect(url).then(() => {
 });
 
 
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
 
-    res.json({message:"Hello to node js app"})
+    res.json({ message: "Hello to node js app" })
 
 })
 
-app.post('/signup',async (req,res)=>{
-
-   
-    try{
-        const {email,password}=req.body
+app.post('/signup', async (req, res) => {
+    try {
+        const { email, password } = req.body
         console.log(req.body)
-        if(!email || !password){
-            return res.status(422).json({error:"please add all fields"})
+        if (!email || !password) {
+            return res.status(422).json({ error: "please add all fields" })
         }
-        
-        const user = await User.findOne({email})
-        if(user){
-            return res.status(422).json({error:"Email is Already Exsist"})
-    
+
+        const user = await User.findOne({ email })
+        if (user) {
+            return res.status(404).json({ error: "Email is Already Exsist" })
+
         }
-        const hashedPassword=await bcrypt.hash(password,12)
+        const hashedPassword = await bcrypt.hash(password, 12)
         await new User({
             email,
-            password:hashedPassword
+            password: hashedPassword
         }).save()
-        res.status(200).json({message:"Singup Sucessful Now Login"})
+        res.status(200).json({ message: "Singup Sucessful Now Login" })
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
 
     }
-    
+
+})
+
+app.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body
+        console.log(req.body)
+        if (!email || !password) {
+            return res.status(422).json({ error: "please add all fields" })
+        }
+
+        const user = await User.findOne({ email })
+        if (!user) {
+            return res.status(404).json({ error: "Email does not exsist please signup " })
+
+        }
+        const match= await bcrypt.compare(password, user.password)
+       if(match){
+        const token= jwt.sign({userid:user._id},SECRET_KEY)
+        res.status(201).json({token})
+
+       }
+       else{
+
+        return res.status(401).json({ error: "email or passoword is incorrect " })
+
+
+       }
+
+    } 
+    catch (error) {
+        console.log(error)
+
+    }
 
 })
 
 app.listen(process.env.PORT || 4000, () => {
     console.log(`Server is working on http://localhost:${process.env.PORT || 4000}`);
-  });
+});
