@@ -24,6 +24,23 @@ app.get('/', (req, res) => {
     res.json({ message: "Hello to node js app" })
 })
 
+const verification = (req, res, next) => {
+    const { authorization } = req.headers
+    if (!authorization) {
+        return res.status(401).json({ error: "First need to Login" })
+    }
+    try{
+        const { userid } = jwt.verify(authorization, SECRET_KEY)
+        req.user = userid
+        next()
+    }catch(error){
+        console.log(error)
+    }
+}
+app.get('/verify',verification, (req, res) => {
+    res.json({ message: "Hello to node  app" })
+})
+
 app.post('/signup', async (req, res) => {
     try {
         const { email, password } = req.body
