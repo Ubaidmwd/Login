@@ -90,16 +90,41 @@ app.post('/login', async (req, res) => {
     }
 })
 
-app.post('/createtodo', verification, async (req, res) => {
-    try {
+app.post('/todo', verification, async (req, res) => {
+    try{
         const data = await new Todo({
             todo: req.body.todo,
             todoBy: req.user
         }).save()
         res.status(201).json({ message: data })
-    } catch (err) {
+    }
+    catch(err){
         console.log(err)
     }
+})
+app.get('/todos',verification,async (req,res)=>{
+    try{
+        const data=await Todo.find({
+            todoBy:req.user
+        })
+        res.status(201).json({message:data})
+    }
+    catch(err){
+        console.log(err)
+    }
+    
+})
+app.delete('/todos/:id',verification,async (req,res)=>{
+    try{
+        const data=await Todo.findOneAndRemove({
+            _id:req.params.id
+        })
+        res.status(201).json({message:data})
+    }
+    catch(err){
+        console.log(err)
+    }
+    
 })
 
 
