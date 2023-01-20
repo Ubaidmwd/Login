@@ -3,7 +3,9 @@ const express = require('express')
 const app = express()
 app.use(express.json())
 const mongoose = require('mongoose')
+
 const User = require('./models/user')
+const Todo = require('./models/todo')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const SECRET_KEY = 's2r12fwe3324@wevgerv'
@@ -29,15 +31,15 @@ const verification = (req, res, next) => {
     if (!authorization) {
         return res.status(401).json({ error: "First need to Login" })
     }
-    try{
+    try {
         const { userid } = jwt.verify(authorization, SECRET_KEY)
         req.user = userid
         next()
-    }catch(error){
+    } catch (error) {
         console.log(error)
     }
 }
-app.get('/verify',verification, (req, res) => {
+app.get('/verify', verification, (req, res) => {
     res.json({ message: "Hello to node  app" })
 })
 
@@ -87,6 +89,20 @@ app.post('/login', async (req, res) => {
         console.log(error)
     }
 })
+
+app.post('/createtodo', verification, async (req, res) => {
+    try {
+        const data = await new Todo({
+            todo: req.body.todo,
+            todoBy: req.user
+        }).save()
+        res.status(201).json({ message: data })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+
 
 app.listen(process.env.PORT || 4000, () => {
     console.log(`Server is working on http://localhost:${process.env.PORT || 4000}`);
