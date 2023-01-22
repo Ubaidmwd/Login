@@ -24,7 +24,7 @@ const Auth = () => {
         
     }
     <h1>Please {auth}!</h1>
-    {error && <h1>{error}</h1>}
+    {error && <h1 style={{color:"red"}}>{error}</h1>}
     <input type="email" 
     name="email" id="email"
     value={email}

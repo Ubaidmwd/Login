@@ -38,8 +38,15 @@ const authReducer = createSlice({
 
     },
     extraReducers: {
-        [signUp.fulfilled]: (state, action) => {
-            state.error = action.payload.error
+        [signUp.fulfilled]: (state, {payload:{error,message}}) => {
+            state.loading=false
+            if(error){
+            state.error =error
+            }else{
+                state.error=message
+            }
+
+
         },
         [signUp.pending]: (state, action) => {
             state.loading = true
