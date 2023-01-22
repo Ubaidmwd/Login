@@ -28,7 +28,8 @@ export const signUp = createAsyncThunk(
 const initialState = {
     token: "",
     loading: false,
-    error: ""
+    error: "",
+    message:""
 }
 
 const authReducer = createSlice({
@@ -42,8 +43,11 @@ const authReducer = createSlice({
             state.loading=false
             if(error){
             state.error =error
+            state.message=initialState.message
+
             }else{
-                state.error=message
+            state.error =initialState.error
+            state.message=message
             }
 
 

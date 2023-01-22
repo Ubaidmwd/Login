@@ -5,7 +5,7 @@ const Auth = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const dispatch = useDispatch()
-  const { loading, error } = useSelector(state => state.user)
+  const { loading, error ,message} = useSelector(state => state.user)
   const [auth, setAuth] = useState("signin")
   const authentication = () => {
     if (auth == 'signin') {
@@ -25,6 +25,8 @@ const Auth = () => {
       }
       <h1>Please {auth}!</h1>
       {error && <h1 style={{ color: "red" }}>{error}</h1>}
+      {message && <h1 style={{ color: "blue" }}>{message}</h1>}
+
       <input type="email"
         name="email" id="email"
         value={email}
