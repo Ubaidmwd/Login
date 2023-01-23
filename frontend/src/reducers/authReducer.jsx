@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
-const fetch2 = async (body, token = '')=> {
-    const res = await fetch('/signup', {
+const fetch2 = async (endpoint,body, token = '')=> {
+    const res = await fetch(endpoint, {
         method: 'post',
         headers: {
             'Accept': 'application/json',
@@ -18,12 +18,22 @@ const fetch2 = async (body, token = '')=> {
 export const signUp = createAsyncThunk(
     'signUp',
     async (body) => {
-        const result = await fetch2(body)
+        const result = await fetch2('/signup',body)
         console.log(result)
         return await result;
 
     }
 )
+export const login = createAsyncThunk(
+    'Login',
+    async (body) => {
+        const result = await fetch2('/login',body)
+        console.log(result)
+        return await result;
+
+    }
+)
+
 
 const initialState = {
     token: "",
@@ -55,6 +65,22 @@ const authReducer = createSlice({
         [signUp.pending]: (state, action) => {
             state.loading = true
         },
+        [login.fulfilled]: (state, {payload:{error,token}}) => {
+            state.loading=false
+            if(error){
+            state.error =error
+            state.token=initialState.token
+
+            }else{
+            state.error =initialState.error
+            state.token=token
+            }
+
+
+        },
+        [login.pending]: (state, action) => {
+            state.loading = true
+        }
 
     }
 })
