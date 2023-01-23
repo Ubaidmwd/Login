@@ -73,6 +73,8 @@ const authReducer = createSlice({
 
             }else{
             state.error =initialState.error
+            state.message =initialState.message
+
             state.token=token
             }
 

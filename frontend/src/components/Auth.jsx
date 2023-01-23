@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
-import { signUp } from '../reducers/authReducer'
+import { signUp,login } from '../reducers/authReducer'
 import { useDispatch, useSelector } from 'react-redux'
 const Auth = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const dispatch = useDispatch()
-  const { loading, error ,message} = useSelector(state => state.user)
+  const { loading, error ,message,token} = useSelector(state => state.user)
   const [auth, setAuth] = useState("signin")
   const authentication = () => {
     if (auth == 'signin') {
+      dispatch(login({ email, password }))
+
 
     } else {
       dispatch(signUp({ email, password }))
@@ -26,6 +28,7 @@ const Auth = () => {
       <h1>Please {auth}!</h1>
       {error && <h1 style={{ color: "red" }}>{error}</h1>}
       {message && <h1 style={{ color: "blue" }}>{message}</h1>}
+      {token && <h1 style={{ color: "blue" }}>Login Sucessfully</h1>}
 
       <input type="email"
         name="email" id="email"
