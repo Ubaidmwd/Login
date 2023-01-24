@@ -1,24 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { APICall } from "../API/Api"
 
-const fetch2 = async (endpoint,body, token = '')=> {
-    const res = await fetch(endpoint, {
-        method: 'post',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-
-    })
-    console.log(res)
-    return await res.json()
-
-}
 
 export const signUp = createAsyncThunk(
     'signUp',
     async (body) => {
-        const result = await fetch2('/signup',body)
+        const result = await APICall('/signup',body,'post')
         console.log(result)
         return await result;
 
@@ -27,7 +14,7 @@ export const signUp = createAsyncThunk(
 export const login = createAsyncThunk(
     'Login',
     async (body) => {
-        const result = await fetch2('/login',body)
+        const result = await APICall('/login',body,'post')
         console.log(result)
         return await result;
 

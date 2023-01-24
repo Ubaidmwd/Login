@@ -8,7 +8,7 @@ const Auth = () => {
   const { loading, error ,message,token} = useSelector(state => state.user)
   const [auth, setAuth] = useState("signin")
   const authentication = () => {
-    if (auth == 'signin') {
+    if (auth === 'signin') {
       dispatch(login({ email, password }))
 
 
@@ -42,7 +42,7 @@ const Auth = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       {
-        auth == 'signin' ?
+        auth === 'signin' ?
           <h5 onClick={() => setAuth('signup')}>do you have an Account?</h5> :
           <h5 onClick={() => setAuth('signin')}>alredy have an Account?</h5>
       }
