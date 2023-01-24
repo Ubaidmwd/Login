@@ -33,12 +33,14 @@ const Auth = () => {
       <input type="email"
         name="email" id="email"
         value={email}
+        autocomplete="off"
         onChange={(e) => setEmail(e.target.value)}
 
       />
       <input type="password"
         name="password" id="password"
         value={password}
+        autocomplete="off"
         onChange={(e) => setPassword(e.target.value)}
       />
       {
