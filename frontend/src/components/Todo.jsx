@@ -1,11 +1,16 @@
 import React from 'react'
 
 const Todo = () => {
-  return (
-    <>
-    <h1>Todo</h1>
-    </>
-  )
+    return (
+        <>
+                <input type="text" name="" id="" placeholder='Enter Your Todo' />
+
+                <button className='btn' onClick={()=>console.log("Hello")}>Add</button>
+                
+          
+
+        </>
+    )
 }
 
 export default Todo

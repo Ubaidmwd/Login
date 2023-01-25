@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { signUp,login } from '../reducers/authReducer'
 import { useDispatch, useSelector } from 'react-redux'
 const Auth = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState(" ")
+  const [password, setPassword] = useState(" ")
   const dispatch = useDispatch()
   const { loading, error ,message,token} = useSelector(state => state.user)
   const [auth, setAuth] = useState("signin")
@@ -33,14 +33,17 @@ const Auth = () => {
       <input type="email"
         name="email" id="email"
         value={email}
-        autocomplete="off"
+        placeholder='email'
+
+        // autocomplete="off"
         onChange={(e) => setEmail(e.target.value)}
 
       />
       <input type="password"
         name="password" id="password"
+        placeholder='password'
         value={password}
-        autocomplete="off"
+        // autocomplete="off"
         onChange={(e) => setPassword(e.target.value)}
       />
       {
