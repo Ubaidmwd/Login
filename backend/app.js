@@ -102,7 +102,7 @@ app.post('/todo', verification, async (req, res) => {
         console.log(err)
     }
 })
-app.get('/todos',verification,async (req,res)=>{
+app.get('/gettodos',verification,async (req,res)=>{
     try{
         const data=await Todo.find({
             todoBy:req.user

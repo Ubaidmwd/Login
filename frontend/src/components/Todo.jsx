@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
-import { addTodo } from '../reducers/todoReducer'
+import React, { useEffect, useState } from 'react'
+import { addTodo, deleteTodo, getTodo } from '../reducers/todoReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Todo = () => {
     const [myTodo, setTodo] = useState("")
     const dispatch = useDispatch()
     const todoData = useSelector(state => state.todo)
-    
+    useEffect(() => {
+
+        dispatch(getTodo())
+        
+
+    },[])
 
     return (
         <>
@@ -16,17 +21,13 @@ const Todo = () => {
                 }} />
 
             <button className='btn' onClick={() => dispatch(addTodo({ todo: myTodo }))}>Add</button>
+
             <ul className="collection">
                 {
-                todoData &&
-                todoData.map(item=>{
-                
-                    return <li className="collection-item">{item.todo}</li>
+                    todoData && todoData.map(item => {
+                        return <li className="collection-item" key={item._id} onClick={()=>dispatch(deleteTodo(item._id))}>{item.todo}</li>
+                    })
                 }
-                )
-
-                }
-               
             </ul>
         </>
     )

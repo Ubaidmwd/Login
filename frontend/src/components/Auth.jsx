@@ -10,13 +10,10 @@ const Auth = () => {
   const authentication = () => {
     if (auth === 'signin') {
       dispatch(login({ email, password }))
-
-
     } else {
       dispatch(signUp({ email, password }))
     }
   }
-
   return (
     <>
       {
@@ -43,18 +40,15 @@ const Auth = () => {
         name="password" id="password"
         placeholder='password'
         value={password}
-        // autocomplete="off"
         onChange={(e) => setPassword(e.target.value)}
-      />
+      />     
+      <button className='btn' onClick={authentication}>{auth}</button>
       {
         auth === 'signin' ?
-          <h5 onClick={() => setAuth('signup')}>do you have an Account?</h5> :
+          <h5 onClick={() => setAuth('signup')}>sign for TodoApp</h5> :
           <h5 onClick={() => setAuth('signin')}>alredy have an Account?</h5>
       }
-      <button className='btn' onClick={authentication}>{auth}</button>
-
     </>
   )
 }
-
 export default Auth;

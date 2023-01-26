@@ -13,3 +13,15 @@ export const APICall = async (endpoint,body,method)=> {
     return await res.json()
 
 }
+export const APICall2 = async (endpoint,method)=> {
+    // console.log(method)
+    const res = await fetch(endpoint, {
+        method: method,
+        headers: {
+            'Accept': 'application/json',
+            "Authorization":localStorage.getItem('token')
+        }
+    })
+    return await res.json()
+
+}
