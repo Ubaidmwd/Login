@@ -1,20 +1,20 @@
-import e from 'express'
 import React, { useState } from 'react'
-
 const Todo = () => {
-    const [todo,setTodo]=useState("")
+    const [myTodo,setTodo]=useState("")
+    
     const addTodo=()=>{
-        setTodo(e.target.value)
-        console(todo)
-
+        console.log(myTodo)
     }
     return (
         <>
-            <input type="text" name="" id="" placeholder='Enter Your Todo' value={todo}  />
+            <input type="text" name="myTodo" id="" placeholder='Enter Your Todo'    value={myTodo}  defaultValue="todo"
+            onChange={(e)=>{
+            setTodo(e.target.value)
+            }}/>
 
             <button className='btn' onClick={addTodo}>Add</button>
         </>
     )
 }
 
-export default Todo
+export default Todo;
