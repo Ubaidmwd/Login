@@ -1,18 +1,33 @@
 import React, { useState } from 'react'
+import { addTodo } from '../reducers/todoReducer'
+import { useDispatch, useSelector } from 'react-redux'
+
 const Todo = () => {
-    const [myTodo,setTodo]=useState("")
+    const [myTodo, setTodo] = useState("")
+    const dispatch = useDispatch()
+    const todoData = useSelector(state => state.todo)
     
-    const addTodo=()=>{
-        console.log(myTodo)
-    }
+
     return (
         <>
-            <input type="text" name="myTodo" id="" placeholder='Enter Your Todo'    value={myTodo}  defaultValue="todo"
-            onChange={(e)=>{
-            setTodo(e.target.value)
-            }}/>
+            <input type="text" name="myTodo" id="" placeholder='Enter Your Todo' value={myTodo} defaultValue="todo"
+                onChange={(e) => {
+                    setTodo(e.target.value)
+                }} />
 
-            <button className='btn' onClick={addTodo}>Add</button>
+            <button className='btn' onClick={() => dispatch(addTodo({ todo: myTodo }))}>Add</button>
+            <ul className="collection">
+                {
+                todoData &&
+                todoData.map(item=>{
+                
+                    return <li className="collection-item">{item.todo}</li>
+                }
+                )
+
+                }
+               
+            </ul>
         </>
     )
 }
