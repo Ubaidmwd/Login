@@ -3,7 +3,7 @@ import { signUp,login } from '../reducers/authReducer'
 import { useDispatch, useSelector } from 'react-redux'
 const Auth = () => {
   const [email, setEmail] = useState(" ")
-  const [password, setPassword] = useState(" ")
+  const [password, setPassword] = useState(null)
   const dispatch = useDispatch()
   const { loading, error ,message,token} = useSelector(state => state.user)
   const [auth, setAuth] = useState("signin")
@@ -41,13 +41,14 @@ const Auth = () => {
         placeholder='password'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-      />     
-      <button className='btn' onClick={authentication}>{auth}</button>
-      {
+      /> 
+       {
         auth === 'signin' ?
-          <h5 onClick={() => setAuth('signup')}>sign for TodoApp</h5> :
-          <h5 onClick={() => setAuth('signin')}>alredy have an Account?</h5>
-      }
+          <h5  style={{color:"blue"}}onClick={() => setAuth('signup')}>Sign for TodoApp</h5> :
+          <h5 style={{color:"blue"}} onClick={() => setAuth('signin')}>alredy have an Account?</h5>
+      }    
+      <button className='btn' onClick={authentication}>{auth}</button>
+     
     </>
   )
 }

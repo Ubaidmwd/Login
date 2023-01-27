@@ -1,3 +1,4 @@
+import './App.css'
 import React,{useEffect} from 'react'
 import Auth from './components/Auth'
 import 'materialize-css/dist/css/materialize.min.css'
@@ -12,7 +13,7 @@ const App = () => {
   dispatch(addtoken())
   },[])
   return (
-    <div>
+    <div className='App'>
       {
         token ? <Todo /> : <Auth />
       }
