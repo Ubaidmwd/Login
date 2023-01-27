@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { addTodo, deleteTodo, getTodo } from '../reducers/todoReducer'
 import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../reducers/authReducer'
 
 const Todo = () => {
     const [myTodo, setTodo] = useState("")
@@ -20,8 +21,8 @@ const Todo = () => {
                     setTodo(e.target.value)
                 }} />
 
-            <button className='btn' onClick={() => dispatch(addTodo({ todo: myTodo }))}>Add</button>
-
+            <button className='btn #e91e63 pink' onClick={() => dispatch(addTodo({ todo: myTodo }))}>Add</button>
+            
             <ul className="collection">
                 {
                     todoData && todoData.map(item => {
@@ -29,6 +30,9 @@ const Todo = () => {
                     })
                 }
             </ul>
+            
+            <button className='btn #e91e63 pink' onClick={() => dispatch(logout())}>Logout</button>
+
         </>
     )
 }

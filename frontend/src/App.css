@@ -4,5 +4,6 @@
     margin: 20px auto;
 }
 input:focus{
-    border-bottom: 2px solid pink;
+    border-bottom: 2px solid rgb(222, 6, 132) !important;
+    box-shadow: none !important;
 }

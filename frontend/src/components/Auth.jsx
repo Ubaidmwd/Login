@@ -47,7 +47,7 @@ const Auth = () => {
           <h5  style={{color:"blue"}}onClick={() => setAuth('signup')}>Sign for TodoApp</h5> :
           <h5 style={{color:"blue"}} onClick={() => setAuth('signin')}>alredy have an Account?</h5>
       }    
-      <button className='btn' onClick={authentication}>{auth}</button>
+      <button className='btn #e91e63 pink' onClick={authentication}>{auth}</button>
      
     </>
   )
