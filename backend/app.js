@@ -10,17 +10,19 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const SECRET_KEY = 's2r12fwe3324@wevgerv'
 
-//////////////////////////////////////////////////////////////////////////////////////
-// const PORT=4000 1XfmMFfAK8gMBUlV                                              //   
-// mongodb+srv://ubaid:1XfmMFfAK8gMBUlV@cluster0.owxo0v7.mongodb.net/?           // retryWrites=true&w=majority
-//////////////////////////////////////////////////////////////////////////////////////
 mongoose.set('strictQuery', false);
-const url = 'mongodb://localhost:27017/Login'
-mongoose.connect(url).then(() => {
-    console.log("Connected to Database");
-}).catch((err) => {
-    console.log("Not Connected to Database ERROR! ", err);
-});
+const url = 'mongodb://ubaidullah:3DN9XbqHG9rc4o9K@ac-x53d8bq-shard-00-00.uuzkx92.mongodb.net:27017,ac-x53d8bq-shard-00-01.uuzkx92.mongodb.net:27017,ac-x53d8bq-shard-00-02.uuzkx92.mongodb.net:27017/Todo?ssl=true&replicaSet=atlas-12ag1k-shard-0&authSource=admin&retryWrites=true&w=majority'
+
+mongoose.connect(
+ url,
+  (err) => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log("Connected to mongodb database successfully!");
+  }
+);
+
 
 app.get('/', (req, res) => {
     res.json({ message: "Hello to node js app" })

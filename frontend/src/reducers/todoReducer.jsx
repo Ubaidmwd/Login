@@ -51,12 +51,9 @@ const todoReducer = createSlice({
         [deleteTodo.fulfilled]: (state, {payload: {message }}) => {
             const remove_item=state.filter(item=>{
                 return item._id !=message._id
-
             })
             return remove_item
-            
         }
-        
     }
 })
 
