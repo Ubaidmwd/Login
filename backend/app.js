@@ -131,6 +131,7 @@ app.delete('/todos/:id',verification,async (req,res)=>{
 if(process.env.NODE_ENV=='production'){
     const path=require('path')
     app.get('/',(res,req)=>{
+        app.use(express.static(path.resolve(__dirname, "../frontend/build")));
         res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"))
     })
 }
