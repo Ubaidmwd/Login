@@ -16,12 +16,13 @@ const Todo = () => {
 
     return (
         <>
+            <h1 style={{color:"whitesmoke",color:"#e91e63"}} >Todo App</h1>
             <input type="text" name="myTodo" id="" placeholder='Enter Your Todo' value={myTodo} defaultValue="todo"
                 onChange={(e) => {
                     setTodo(e.target.value)
                 }} />
 
-            <button className='btn #e91e63 pink' onClick={() => dispatch(addTodo({ todo: myTodo }))}>Add</button>
+            <button className='btn #e91e63 pink'ss onClick={() => dispatch(addTodo({ todo: myTodo }))}>Add</button>
             
             <ul className="collection">
                 {
