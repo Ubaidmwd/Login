@@ -7,13 +7,13 @@ const User = require('./models/user')
 const Todo = require('./models/todo')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const SECRET_KEY = 's2r12fwe3324@wevgerv'
+const {JWT_SECRET,MONGO_URI}= require('./config/key')
 
 mongoose.set('strictQuery', false);
-const url = 'mongodb://ubaidullah:3DN9XbqHG9rc4o9K@ac-x53d8bq-shard-00-00.uuzkx92.mongodb.net:27017,ac-x53d8bq-shard-00-01.uuzkx92.mongodb.net:27017,ac-x53d8bq-shard-00-02.uuzkx92.mongodb.net:27017/Todo?ssl=true&replicaSet=atlas-12ag1k-shard-0&authSource=admin&retryWrites=true&w=majority'
+// const url = 
 
 mongoose.connect(
- url,
+    MONGO_URI,
   (err) => {
     if (err) {
       return console.log(err);
@@ -23,9 +23,9 @@ mongoose.connect(
 );
 
 
-app.get('/', (req, res) => {
-    res.json({ message: "Hello to node js app" })
-})
+// app.get('/', (req, res) => {
+//     res.json({ message: "Hello to node js app" })
+// })
 
 const verification = (req, res, next) => {
     const { authorization } = req.headers
@@ -33,7 +33,7 @@ const verification = (req, res, next) => {
         return res.status(401).json({ error: "First need to Login" })
     }
     try {
-        const { userid } = jwt.verify(authorization, SECRET_KEY)
+        const { userid } = jwt.verify(authorization, JWT_SECRET)
         req.user = userid
         next()
     } catch (error) {
@@ -128,6 +128,12 @@ app.delete('/todos/:id',verification,async (req,res)=>{
     
 })
 
+if(process.env.NODE_ENV=='production'){
+    const path=require('path')
+    app.get('/',(res,req)=>{
+        res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"))
+    })
+}
 
 
 app.listen(process.env.PORT || 4000, () => {
