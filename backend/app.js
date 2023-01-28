@@ -3,7 +3,6 @@ const express = require('express')
 const app = express()
 app.use(express.json())
 const mongoose = require('mongoose')
-
 const User = require('./models/user')
 const Todo = require('./models/todo')
 const bcrypt = require('bcryptjs')

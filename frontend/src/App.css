@@ -1,7 +1,12 @@
+*{
+    background-color: black;
+    opacity: 0.8;
+}
 .App{
     text-align: center;
     max-width: 500px;
     margin: 20px auto;
+    
 }
 input:focus{
     border-bottom: 2px solid rgb(222, 6, 132) !important;
