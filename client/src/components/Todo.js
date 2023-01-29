@@ -14,6 +14,7 @@ export default function Todo() {
     },[])
     return (
         <div>
+            <h2 style={{color:"#ff4081"}}> Todo App</h2>
             <input
              placeholder="write todo here"
              value={mytodo}
@@ -25,7 +26,7 @@ export default function Todo() {
                     todos.map(item=>{
                         return  <li className="collection-item" key={item._id}
                         onClick={()=>dispatch(deleteTodo(item._id))}
-                        >{item.todo}</li>
+                         style={{color:"black"}}>{item.todo}</li>
                     })
                 }
                
